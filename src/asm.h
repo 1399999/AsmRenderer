@@ -1,3 +1,9 @@
+void render_init(void);
+
+void bss_add(char * item);
+void data_add(char * item);
+void text_add(char * item);
+
 void combine_code(void);
 void export(char * path);
 
