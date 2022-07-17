@@ -1,8 +1,8 @@
 # AsmRenderer
-## Description
+## Project Description
 > #### This is a library for Assembly Rendering. This library is used in some compilers.
 ## Examples
-> #### This is an example that prints "Hello, World!"
+> #### This is an ARM example that prints "Hello, World!"
 
 ```
 text_add("mov r0, #1");
@@ -22,7 +22,7 @@ combine_code();
 export_to("C:\Asm\asm.S");
 ```
 
-## Description
+## Method Description
 
 - The text_add function adds the specified text to the assembly text section.
 - The data_add function adds the specified text to the assembly data section.
