@@ -1,20 +1,26 @@
+#include <stdio.h>
 #include "asm.h"
 
 int main()
 {
-    test_add("mov r0, #1");
-    test_add("ldr r1, =message");
-    test_add("ldr r2, =len");
-    test_add("mov r7, #4");
-    test_add("swi 0");
+    render_init(0, 4);
 
-    test_add("mov r7, #1");
-    test_add("swi 0");
+    text_add("mov r0, #1");
+    text_add("ldr r1, =message");
+    text_add("ldr r2, =len");
+    text_add("mov r7, #4");
+    text_add("swi 0");
+
+    text_add("mov r7, #1");
+    text_add("swi 0");
 
     data_add("message:");
-    data_add(".asciz \"hello world\n\"");
+    data_add(".asciz \"Hello, World!\\n\"");
     data_add("len = .-message");
 
     combine_code();
-    export_to("C:\Asm\asm.S");
+
+    printf("%s", code);
+
+    return 0;
 }

@@ -1,12 +1,26 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include "asm.h"
 #include "func.h"
 
-void str_add_ch(char * str, char item) 
+unsigned int str_ary_len(char ** str_ary)
 {
-    strncat(str, &item, 1); 
+    unsigned int i = 0;
+
+    for(; str_ary[i] != NULL; i++);
+
+    return i;
 }
 
-void str_add_str(char * str, char * str2) 
+void aalloc_ary(char ** str_ary, sections s, unsigned int amount)
 {
-    strcat(str, str2); 
+    if (s == BSS)
+        str_ary = malloc(bss_alloc + amount);
+
+    else if(s == DATA)
+        str_ary = malloc(data_alloc + amount);
+
+    else
+        str_ary = malloc(text_alloc + amount);
 }
