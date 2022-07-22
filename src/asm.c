@@ -37,7 +37,7 @@ void render_init(unsigned int bss_len, unsigned int data_len)
 
 void bss_add(char * item)
 {
-    aalloc_ary(bss, BSS, strlen(item));
+    realloc_ary(bss, BSS, strlen(item));
 
     bss[bss_next++] = item;
 }
@@ -46,7 +46,7 @@ void bss_add(char * item)
 
 void data_add(char * item)
 {
-    aalloc_ary(bss, BSS, strlen(item));
+    realloc_ary(bss, BSS, strlen(item));
 
     data[data_next++] = item;
 }
@@ -55,7 +55,7 @@ void data_add(char * item)
 
 void text_add(char * item)
 {
-    aalloc_ary(bss, BSS, strlen(item));
+    realloc_ary(bss, BSS, strlen(item));
 
     text[text_next++] = item;
 }
@@ -100,4 +100,16 @@ void combine_code(void)
             strcat(code, "\n");
         }
     }
+}
+
+// Exports the code to the specified path.
+
+void export_to(char * path)
+{
+	FILE * fp;
+	fp = fopen(path, "w");
+
+	fprintf(fp, code);
+
+	fclose(fp);
 }
