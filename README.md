@@ -22,6 +22,8 @@ data_add("len = .-message");
 
 combine_code();
 
+export_to("C:\\ASM\\asm.s");
+
 printf("%s", code);
 ```
 
