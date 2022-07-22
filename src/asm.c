@@ -1,3 +1,5 @@
+/* This file contians the logic for AsmRenderer. */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -19,6 +21,8 @@ unsigned int bss_alloc = 0;
 unsigned int data_alloc = 0;
 unsigned int text_alloc = 0;
 
+// Used to initialize a rendering process.
+
 void render_init(unsigned int bss_len, unsigned int data_len)
 {
     bss = calloc(sizeof(char * ), bss_len);
@@ -27,12 +31,9 @@ void render_init(unsigned int bss_len, unsigned int data_len)
 
     text_add(".global _start");
     text_add("_start:");
-    
-    if(bss_len == 0)
-        bss[0] = NULL;
-    if(data_len == 0)
-        data[0] = NULL;
 }
+
+// Adds text to bss.
 
 void bss_add(char * item)
 {
@@ -41,12 +42,16 @@ void bss_add(char * item)
     bss[bss_next++] = item;
 }
 
+// Adds text to data.
+
 void data_add(char * item)
 {
     aalloc_ary(bss, BSS, strlen(item));
 
     data[data_next++] = item;
 }
+
+// Adds text to text.
 
 void text_add(char * item)
 {
@@ -55,13 +60,15 @@ void text_add(char * item)
     text[text_next++] = item;
 }
 
+// Combines BSS, DATA, and TEXT into the code variable.
+
 void combine_code(void)
 {
     code = malloc((sizeof(char * ) * sizeof(bss)) + (sizeof(char * ) * sizeof(data)) + (sizeof(char * ) * sizeof(text)));
 
     strcpy(code, EMPTY);
 
-    if (str_ary_len(bss) > 0) 
+    if (str_ary_len(bss) > 0)
     {
         strcat(code, ".bss\n");
 
@@ -83,7 +90,7 @@ void combine_code(void)
         }
     }
 
-    if (text_next > 0) 
+    if (text_next > 0)
     {
         strcat(code, ".text\n");
 

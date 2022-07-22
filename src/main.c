@@ -1,5 +1,9 @@
+/* This file is used for testing. */
+
 #include <stdio.h>
 #include "asm.h"
+
+// Testing method.
 
 int main()
 {
