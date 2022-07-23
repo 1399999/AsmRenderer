@@ -46,7 +46,7 @@ void bss_add(char * item)
 
 void data_add(char * item)
 {
-    realloc_ary(bss, BSS, strlen(item));
+    realloc_ary(data, DATA, strlen(item)); // Needs to be tested.
 
     data[data_next++] = item;
 }
@@ -55,7 +55,7 @@ void data_add(char * item)
 
 void text_add(char * item)
 {
-    realloc_ary(bss, BSS, strlen(item));
+    realloc_ary(text, TEXT, strlen(item)); // Needs to be tested.
 
     text[text_next++] = item;
 }
