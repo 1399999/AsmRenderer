@@ -5,7 +5,7 @@
 > #### This is an ARM example that prints "Hello, World!"
 
 ```
-render_init(0, 4);
+render_init();
 
 text_add("mov r0, #1");
 text_add("ldr r1, =message");
@@ -27,8 +27,9 @@ export_to("C:\\ASM\\asm.s");
 printf("%s", code);
 ```
 
-## Method Description
+## Function Description
 
+- The render_init function initializes AsmRenderer for use.
 - The text_add function adds the specified text to the assembly text section.
 - The data_add function adds the specified text to the assembly data section.
 - The bss_add function adds the specified text to the assembly bss section.
