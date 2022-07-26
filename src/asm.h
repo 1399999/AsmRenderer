@@ -1,4 +1,4 @@
-void render_init(unsigned int bss_len, unsigned int data_len);
+void render_init(void);
 
 void bss_add(char * item);
 void data_add(char * item);
