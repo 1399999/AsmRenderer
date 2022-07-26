@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "asm.h"
-#include "func.h"
 
 #define EMPTY ""
 
@@ -13,49 +12,55 @@ char ** data;
 char ** text;
 char * code;
 
-unsigned int bss_next = 0;
-unsigned int data_next = 0;
-unsigned int text_next = 0;
+unsigned long bss_next = 0;
+unsigned long data_next = 0;
+unsigned long text_next = 0;
 
-unsigned int bss_alloc = 0;
-unsigned int data_alloc = 0;
-unsigned int text_alloc = 0;
+unsigned long bss_alloc = 0;
+unsigned long data_alloc = 0;
+unsigned long text_alloc = 0;
 
 // Used to initialize a rendering process.
 
-void render_init(unsigned int bss_len, unsigned int data_len)
+void render_init(void)
 {
-    bss = calloc(sizeof(char * ), bss_len);
-    data = calloc(sizeof(char * ), data_len);
-    text = calloc(sizeof(char * ), 0);
+    bss = calloc(1, sizeof(char * ));
+    data = calloc(1, sizeof(char * ));
+    text = calloc(1, sizeof(char * ));
 
     text_add(".global _start");
     text_add("_start:");
 }
 
-// Adds text to bss.
+// Adds the specified text to bss.
 
 void bss_add(char * item)
 {
-    realloc_ary(bss, BSS, strlen(item));
+    bss_alloc += strlen(item) + 2;
+
+    bss = realloc(bss, bss_alloc);
 
     bss[bss_next++] = item;
 }
 
-// Adds text to data.
+// Adds the specified text to data.
 
 void data_add(char * item)
 {
-    realloc_ary(bss, BSS, strlen(item));
+    data_alloc += strlen(item) + 2;
+
+    data = realloc(data, data_alloc);
 
     data[data_next++] = item;
 }
 
-// Adds text to text.
+// Adds the specified text to text.
 
 void text_add(char * item)
 {
-    realloc_ary(bss, BSS, strlen(item));
+    text_alloc += strlen(item) + 2;
+
+    text = realloc(text, text_alloc);
 
     text[text_next++] = item;
 }
@@ -64,33 +69,33 @@ void text_add(char * item)
 
 void combine_code(void)
 {
-    code = malloc((sizeof(char * ) * sizeof(bss)) + (sizeof(char * ) * sizeof(data)) + (sizeof(char * ) * sizeof(text)));
+    code = calloc(bss_next + data_next + text_next, bss_alloc + data_alloc + text_alloc);
 
     strcpy(code, EMPTY);
 
-    if (str_ary_len(bss) > 0)
+    if (bss_next > 0) 
     {
         strcat(code, ".bss\n");
 
-        for(int i = 0; i < str_ary_len(bss); i++)
+        for(int i = 0; i < bss_next; i++)
         {
             strcat(code, bss[i]);
             strcat(code, "\n");
         }
     }
 
-    if (str_ary_len(data) > 0)
+    if (data_next > 0)
     {
         strcat(code, ".data\n");
 
-        for(int i = 0; i < str_ary_len(data); i++)
+        for(int i = 0; i < data_next; i++)
         {
             strcat(code, data[i]);
             strcat(code, "\n");
         }
     }
 
-    if (text_next > 0)
+    if (text_next > 0) 
     {
         strcat(code, ".text\n");
 

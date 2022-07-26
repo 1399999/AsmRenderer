@@ -1,4 +1,6 @@
-void render_init(unsigned int bss_len, unsigned int data_len);
+/* This file contians the logicthat is needed to use AsmRenderer. */
+
+void render_init(void);
 
 void bss_add(char * item);
 void data_add(char * item);
@@ -12,10 +14,10 @@ extern char ** data;
 extern char ** text;
 extern char * code;
 
-extern unsigned int bss_next;
-extern unsigned int data_next;
-extern unsigned int text_next;
+extern unsigned long bss_next;
+extern unsigned long data_next;
+extern unsigned long text_next;
 
-extern unsigned int bss_alloc;
-extern unsigned int data_alloc;
-extern unsigned int text_alloc;
+extern unsigned long bss_alloc;
+extern unsigned long data_alloc;
+extern unsigned long text_alloc;
