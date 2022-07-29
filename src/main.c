@@ -3,7 +3,7 @@
 
 int main()
 {
-    render_init(MASM);
+    render_init(GNU);
     
     text_add("mov r0, #1");
     text_add("ldr r1, =message");
@@ -18,7 +18,7 @@ int main()
     data_add(".asciz \"Hello, World!\\n\"");
     data_add("len = .-message");
     
-    combine_code(".386\n");
+    combine_code("");
     
     export_to("C:\\ASM\\asm.s");
 

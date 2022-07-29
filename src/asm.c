@@ -33,7 +33,7 @@ void render_init(asm_enum asm_e)
         masm_i.data = calloc(1, sizeof(char * ));
         masm_i.dataq = calloc(1, sizeof(char * ));
         masm_i.stack = calloc(1, sizeof(char * ));
-
+        
         code_add("Start PROC");
     }
 }
@@ -167,7 +167,6 @@ void combine_code(char * before)
 
         strcpy(output, before);
 
-
         if (masm_i.code_next > 0) 
         {
             strcat(output, ".CODE\n");
@@ -182,10 +181,10 @@ void combine_code(char * before)
         if (masm_i.data_next > 0)
         {
             strcat(output, ".DATA\n");
-
+            
             for(int i = 0; i < masm_i.data_next; i++)
             {
-                strcat(output, (masm_i.data[i]));
+                strcat(output, masm_i.data[i]);
                 strcat(output, "\n");
             }
         }
@@ -196,18 +195,18 @@ void combine_code(char * before)
 
             for(int i = 0; i < masm_i.dataq_next; i++)
             {
-                strcat(output, (masm_i.dataq[i]));
+                strcat(output, masm_i.dataq[i]);
                 strcat(output, "\n");
             }
         }
 
         if (masm_i.stack_next > 0) 
         {
-            strcat(output, ".STACK\n");
+            strcat(output, ".STACK\n");            
 
             for(int i = 0; i < masm_i.stack_next; i++)
             {
-                strcat(output, (masm_i.stack[i]));
+                strcat(output, masm_i.stack[i]);
                 strcat(output, "\n");
             }
         }
