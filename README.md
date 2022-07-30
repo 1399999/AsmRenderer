@@ -5,7 +5,7 @@
 > #### This is an ARM example that prints "Hello, World!"
 
 ```
-render_init();
+render_init(GNU);
 
 text_add("mov r0, #1");
 text_add("ldr r1, =message");
@@ -20,7 +20,7 @@ data_add("message:");
 data_add(".asciz \"Hello, World!\\n\"");
 data_add("len = .-message");
 
-combine_code();
+combine_code("");
 
 export_to("C:\\ASM\\asm.s");
 
